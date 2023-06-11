@@ -9,8 +9,9 @@ graph  *graphAlloc() {
 
 	assert(grp != NULL);
 
-	grp->first_vertex = NULL;
 	grp->vertex_amount = 0;
+	grp->first_vertex = NULL;
+	grp->last_vertex = NULL;
 
 	return grp;
 }
@@ -62,6 +63,28 @@ void   *graphFindVertex(graph *grp, int vertex_label) {
 		vert = vert->next_vertex;
 	}
 
-	return NULL;
+	return NULL;	
+}
+
+void 	graphInsertVertex(graph *grp, void *value) {
+	vertex *new_vert = NULL;
+
+	assert(grp != NULL);
+
+	new_vert = malloc(sizeof(vertex));
+
+	assert(new_vert != NULL);
+
+	new_vert->value = value;
+	new_vert->label = grp->vertex_amount++;
+	new_vert->edges_amount = 0;
+	new_vert->first_edge = NULL;
+	new_vert->next_vertex = NULL;
+
+	if (grp->first_vertex == NULL)
+		grp->first_vertex = new_vert;
+	else 
+		grp->last_vertex->next_vertex = new_vert;
 	
+	grp->last_vertex = new_vert;
 }
