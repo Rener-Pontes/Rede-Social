@@ -24,3 +24,5 @@ struct edge {
 
 graph  *graphAlloc();
 void	graphFree(graph *grp);
+
+void   *graphFindVertex(graph *grp, int vertex_label);

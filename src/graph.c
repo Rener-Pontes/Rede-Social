@@ -46,3 +46,22 @@ void	graphFree(graph *grp) {
 	vertexFree(grp->first_vertex);
 	free(grp);
 }
+
+
+
+void   *graphFindVertex(graph *grp, int vertex_label) {
+	vertex *vert = NULL;
+
+	assert(grp != NULL);
+
+	vert = grp->first_vertex;
+	while (vert) {
+		if (vert->label == vertex_label)
+			return vert;
+		
+		vert = vert->next_vertex;
+	}
+
+	return NULL;
+	
+}
