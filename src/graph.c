@@ -88,3 +88,32 @@ void 	graphInsertVertex(graph *grp, void *value) {
 	
 	grp->last_vertex = new_vert;
 }
+
+void	graphRemoveVertex(graph *grp, int vertex_label) {
+	vertex *vert = NULL, *prev_vert = NULL;
+
+	assert(grp != NULL);
+
+	vert = grp->first_vertex;
+
+	while (vert) {
+		if (vert->label != vertex_label) {
+			prev_vert = vert;
+			vert = vert->next_vertex;
+			continue;
+		}
+
+		edgeFree(vert->first_edge);
+
+		/*TODO a way to remove all the edges that references to this vertex*/
+
+		if (prev_vert == NULL) 
+			grp->first_vertex = vert->next_vertex;
+		else
+			prev_vert->next_vertex = vert->next_vertex;
+		
+		grp->vertex_amount--;
+
+		free(vert);
+	}
+}

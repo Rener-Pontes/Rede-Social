@@ -28,3 +28,4 @@ void	graphFree(graph *grp);
 
 void   *graphFindVertex(graph *grp, int vertex_label);
 void 	graphInsertVertex(graph *grp, void *value);
+void	graphRemoveVertex(graph *grp, int vertex_label);
