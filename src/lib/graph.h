@@ -32,3 +32,4 @@ void 	graphInsertVertex(graph *grp, void *value);
 void	graphRemoveVertex(graph *grp, int vertex_label);
 
 void	graphInsertEdge(graph *grp, int origin_label, int destiny_label);
+void	graphRemoveEdge(graph *grp, int origin_label, int destiny_label);
