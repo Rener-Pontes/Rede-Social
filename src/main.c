@@ -3,6 +3,25 @@
 
 #include "./lib/graph.h"
 
+void print(graph *grp) {
+	vertex *vert = NULL;
+	edge *ed = NULL;
+
+	vert = grp->first_vertex;
+	printf("Grafo: ->\n");
+	while (vert) {
+		printf("    %d:", vert->label);
+
+		ed = vert->first_edge;
+		while (ed) {
+			printf("(%d)", ed->destiny->label);
+			ed = ed->next_edge;
+		}
+		printf("\n");
+		vert = vert->next_vertex;
+	}
+}
+
 int main() {
 	graph *grp = graphAlloc();
 	vertex *vert = NULL;
@@ -12,24 +31,16 @@ int main() {
 	for (int i = 0; i < 5; i++) 
 		graphInsertVertex(grp, &n[i]);
 	
-	vert = grp->first_vertex;
 
-	for (int i = 0; i < 5; i++) {
-		p = (int*) vert->value;
-		printf("%d  ", *p);
-		vert = vert->next_vertex;
-	}
-	printf("\n");
+	for (int i = 0; i < 5; i++)
+		for (int j = 0; j < 5; j++)
+			if (i != j) graphInsertEdge(grp, i, j);
 
+	print(grp);
+	graphRemoveEdge(grp, 0, 3);
 	graphRemoveVertex(grp, 3);
+	print(grp);
 	
-	vert = grp->first_vertex;
-
-	for (int i = 0; i < grp->vertex_amount; i++) {
-		p = (int*) vert->value;
-		printf("%d  ", *p);
-		vert = vert->next_vertex;
-	}
-	printf("\n");
+	graphFree(grp);
 
 }
