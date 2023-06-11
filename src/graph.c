@@ -79,6 +79,7 @@ void 	graphInsertVertex(graph *grp, void *value) {
 	new_vert->label = grp->vertex_amount++;
 	new_vert->edges_amount = 0;
 	new_vert->first_edge = NULL;
+	new_vert->last_edge = NULL;
 	new_vert->next_vertex = NULL;
 
 	if (grp->first_vertex == NULL)
@@ -116,4 +117,32 @@ void	graphRemoveVertex(graph *grp, int vertex_label) {
 
 		free(vert);
 	}
+}
+
+void	graphInsertEdge(graph *grp, int origin_label, int destiny_label) {
+	edge *new_ed = NULL;
+	vertex *origin = NULL, *destiny = NULL;
+
+	assert(grp != NULL);
+
+	origin = graphFindVertex(grp, origin_label);
+	destiny = graphFindVertex(grp, destiny_label);
+
+	assert(origin != NULL && destiny != NULL);
+
+	new_ed = malloc(sizeof(edge));
+
+	assert(new_ed != NULL);
+
+	new_ed->label = origin->edges_amount++;
+	new_ed->origin = origin;
+	new_ed->destiny = destiny;
+	new_ed->next_edge = NULL;
+
+	if (origin->first_edge == NULL) 
+		origin->first_edge = new_ed;
+	else
+		origin->last_edge->next_edge = new_ed;
+	
+	origin->last_edge = new_ed;
 }

@@ -12,8 +12,9 @@ struct vertex {
 	void   *value;
 	int 	label;
 	int 	edges_amount;
-	vertex *next_vertex;
 	edge   *first_edge;
+	edge   *last_edge;
+	vertex *next_vertex;
 };
 struct edge {
 	int 	label;
@@ -29,3 +30,5 @@ void	graphFree(graph *grp);
 void   *graphFindVertex(graph *grp, int vertex_label);
 void 	graphInsertVertex(graph *grp, void *value);
 void	graphRemoveVertex(graph *grp, int vertex_label);
+
+void	graphInsertEdge(graph *grp, int origin_label, int destiny_label);
