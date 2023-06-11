@@ -6,6 +6,7 @@ typedef struct edge edge;
 struct graph {
 	int 	vertex_amount;
 	vertex *first_vertex;
+	vertex *last_vertex;
 };
 struct vertex {
 	void   *value;
@@ -24,3 +25,7 @@ struct edge {
 
 graph  *graphAlloc();
 void	graphFree(graph *grp);
+
+void   *graphFindVertex(graph *grp, int vertex_label);
+void 	graphInsertVertex(graph *grp, void *value);
+void	graphRemoveVertex(graph *grp, int vertex_label);
