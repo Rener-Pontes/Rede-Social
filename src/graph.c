@@ -106,7 +106,8 @@ void	graphRemoveVertex(graph *grp, int vertex_label) {
 
 		edgeFree(vert->first_edge);
 
-		/*TODO a way to remove all the edges that references to this vertex*/
+		for (int i = 0; i < grp->vertex_amount; i++)
+			graphRemoveEdge(grp, i, vert->label);
 
 		if (prev_vert == NULL) 
 			grp->first_vertex = vert->next_vertex;
