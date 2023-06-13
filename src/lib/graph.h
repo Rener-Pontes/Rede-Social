@@ -27,6 +27,7 @@ struct edge {
 graph  *graphAlloc();
 void	graphFree(graph *grp);
 
+int 	graphFindVertexLabelByValue(graph *grp, void *search_value, int (*compar)(void*, void*));
 void   *graphFindVertex(graph *grp, int vertex_label);
 void 	graphInsertVertex(graph *grp, void *value);
 void	graphRemoveVertex(graph *grp, int vertex_label);

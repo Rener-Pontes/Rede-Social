@@ -49,6 +49,21 @@ void	graphFree(graph *grp) {
 }
 
 
+int 	graphFindVertexLabelByValue(graph *grp, void *search_value, int (*compar)(void*, void*)) {
+	vertex *vert = NULL;
+
+	assert(grp != NULL);
+
+	vert = grp->first_vertex;
+	while (vert) {
+		if (compar(search_value, vert->value)) 
+			return vert->label;
+		vert = vert->next_vertex;
+	}
+
+	return -1;
+	
+}
 
 void   *graphFindVertex(graph *grp, int vertex_label) {
 	vertex *vert = NULL;
