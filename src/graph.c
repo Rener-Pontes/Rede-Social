@@ -69,6 +69,7 @@ void   *graphFindVertex(graph *grp, int vertex_label) {
 	vertex *vert = NULL;
 
 	assert(grp != NULL);
+	assert(vertex_label >= 0);
 
 	vert = grp->first_vertex;
 	while (vert) {
@@ -109,6 +110,7 @@ void	graphRemoveVertex(graph *grp, int vertex_label) {
 	vertex *vert = NULL, *prev_vert = NULL;
 
 	assert(grp != NULL);
+	assert(vertex_label >= 0);
 
 	vert = grp->first_vertex;
 
@@ -142,6 +144,8 @@ void	graphInsertEdge(graph *grp, int origin_label, int destiny_label) {
 	vertex *origin = NULL, *destiny = NULL;
 
 	assert(grp != NULL);
+	assert(origin_label >= 0);
+	assert(destiny_label >= 0);
 
 	origin = graphFindVertex(grp, origin_label);
 	destiny = graphFindVertex(grp, destiny_label);
@@ -170,6 +174,8 @@ void	graphRemoveEdge(graph *grp, int origin_label, int destiny_label) {
 	vertex *origin = NULL, *destiny = NULL;
 
 	assert(grp != NULL);
+	assert(origin_label >= 0);
+	assert(destiny_label >= 0);
 
 	origin = graphFindVertex(grp, origin_label);
 	destiny = graphFindVertex(grp, destiny_label);
