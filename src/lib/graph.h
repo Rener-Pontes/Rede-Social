@@ -24,3 +24,4 @@ struct edge {
 
 graph  *graphAlloc();
 void	graphFree(graph *grp);
+void graphPrint(vertex *vtx);

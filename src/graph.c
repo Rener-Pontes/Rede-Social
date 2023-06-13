@@ -4,7 +4,7 @@
 
 #include "./lib/graph.h"
 
-graph  *graphAlloc() {
+graph *graphAlloc() {
 	graph *grp = malloc(sizeof(graph));
 
 	assert(grp != NULL);
@@ -24,7 +24,6 @@ void edgeFree(edge *first_edge) {
 		ed = ed->next_edge;
 		free(aux_ed);
 	}
-	
 }
 
 void vertexFree(vertex *first_vertex) {
@@ -38,11 +37,14 @@ void vertexFree(vertex *first_vertex) {
 
 		free(aux_vert);
 	}
-	
 }
 
-void	graphFree(graph *grp) {
+void graphFree(graph *grp) {
 	assert(grp != NULL);
 	vertexFree(grp->first_vertex);
 	free(grp);
+}
+
+void graphShowUser(vertex *vtx) {
+	printf("%s", (char*)vtx->value);
 }
