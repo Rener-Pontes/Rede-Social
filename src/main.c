@@ -1,13 +1,5 @@
 #include <stdio.h>
-<<<<<<< HEAD
-#include "lib/graph.h"
-
-int main() {
-	printf("_______________  BEM-VINDO AO GRAFNET  _______________");
-	return 0;
-=======
 #include <stdlib.h>
-
 #include "./lib/graph.h"
 
 void print(graph *grp) {
@@ -35,9 +27,9 @@ int main() {
 	int n[] = {10, 20, 30, 40, 50},
 		*p = NULL;
 
-	for (int i = 0; i < 5; i++) 
+	for (int i = 0; i < 5; i++)
 		graphInsertVertex(grp, &n[i]);
-	
+
 
 	for (int i = 0; i < 5; i++)
 		for (int j = 0; j < 5; j++)
@@ -47,8 +39,8 @@ int main() {
 	graphRemoveEdge(grp, 0, 3);
 	graphRemoveVertex(grp, 3);
 	print(grp);
-	
+
 	graphFree(grp);
 
->>>>>>> 6dafe4b6780d1a642573ffa17f8088ab28bf8b8a
+	return 0;
 }

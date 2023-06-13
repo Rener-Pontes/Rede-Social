@@ -26,9 +26,6 @@ struct edge {
 
 graph  *graphAlloc();
 void	graphFree(graph *grp);
-<<<<<<< HEAD
-void graphPrint(vertex *vtx);
-=======
 
 int 	graphFindVertexLabelByValue(graph *grp, void *search_value, int (*compar)(void*, void*));
 void   *graphFindVertex(graph *grp, int vertex_label);
@@ -37,4 +34,3 @@ void	graphRemoveVertex(graph *grp, int vertex_label);
 
 void	graphInsertEdge(graph *grp, int origin_label, int destiny_label);
 void	graphRemoveEdge(graph *grp, int origin_label, int destiny_label);
->>>>>>> 6dafe4b6780d1a642573ffa17f8088ab28bf8b8a

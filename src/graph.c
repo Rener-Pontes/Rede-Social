@@ -46,11 +46,6 @@ void graphFree(graph *grp) {
 	free(grp);
 }
 
-<<<<<<< HEAD
-void graphShowUser(vertex *vtx) {
-	printf("%s", (char*)vtx->value);
-=======
-
 int 	graphFindVertexLabelByValue(graph *grp, void *search_value, int (*compar)(void*, void*)) {
 	vertex *vert = NULL;
 
@@ -64,7 +59,6 @@ int 	graphFindVertexLabelByValue(graph *grp, void *search_value, int (*compar)(v
 	}
 
 	return -1;
-	
 }
 
 void   *graphFindVertex(graph *grp, int vertex_label) {
@@ -77,11 +71,11 @@ void   *graphFindVertex(graph *grp, int vertex_label) {
 	while (vert) {
 		if (vert->label == vertex_label)
 			return vert;
-		
+
 		vert = vert->next_vertex;
 	}
 
-	return NULL;	
+	return NULL;
 }
 
 void 	graphInsertVertex(graph *grp, void *value) {
@@ -102,9 +96,9 @@ void 	graphInsertVertex(graph *grp, void *value) {
 
 	if (grp->first_vertex == NULL)
 		grp->first_vertex = new_vert;
-	else 
+	else
 		grp->last_vertex->next_vertex = new_vert;
-	
+
 	grp->last_vertex = new_vert;
 }
 
@@ -128,11 +122,11 @@ void	graphRemoveVertex(graph *grp, int vertex_label) {
 		for (int i = 0; i < grp->vertex_amount; i++)
 			graphRemoveEdge(grp, i, vert->label);
 
-		if (prev_vert == NULL) 
+		if (prev_vert == NULL)
 			grp->first_vertex = vert->next_vertex;
 		else
 			prev_vert->next_vertex = vert->next_vertex;
-		
+
 		grp->vertex_amount--;
 
 		free(vert);
@@ -163,11 +157,11 @@ void	graphInsertEdge(graph *grp, int origin_label, int destiny_label) {
 	new_ed->destiny = destiny;
 	new_ed->next_edge = NULL;
 
-	if (origin->first_edge == NULL) 
+	if (origin->first_edge == NULL)
 		origin->first_edge = new_ed;
 	else
 		origin->last_edge->next_edge = new_ed;
-	
+
 	origin->last_edge = new_ed;
 }
 
@@ -192,14 +186,13 @@ void	graphRemoveEdge(graph *grp, int origin_label, int destiny_label) {
 			continue;
 		}
 
-		if (prev_ed == NULL) 
+		if (prev_ed == NULL)
 			origin->first_edge = ed->next_edge;
 		else
 			prev_ed->next_edge = ed->next_edge;
-		
+
 		origin->edges_amount--;
 		free(ed);
 		break;
 	}
->>>>>>> 6dafe4b6780d1a642573ffa17f8088ab28bf8b8a
 }
