@@ -1,10 +1,20 @@
+#include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "./lib/operation.h"
 
 #define STANDARD_USER_NAME_LENGTH 20
 #define EQUAL_NAMES 0
 #define ONLINE 1
 #define OFFLINE 0
+
+int compare_users(void *a, void *b) {
+	vertex *v1 = (vertex*)a;
+	vertex *v2 = (vertex*)b;
+
+	return v1->edges_amount - v2->edges_amount;
+}
 
 static void userGetFollowers(graph *grp, user user_name) {
 
@@ -19,11 +29,43 @@ static void userListNoFollowers(graph *grp) {
 }
 
 static void userListNoFollowing(graph *grp) {
+	vertex *vert = NULL;
+	user user_name = NULL;
 
+	assert(grp != NULL);
+
+	vert = grp->first_vertex;
+
+	while (vert) {
+		if (vert->edges_amount == 0) {
+			user_name = (user)vert->value;
+			printf("%s\n", user_name);
+		}
+
+		vert = vert->next_vertex;
+	}
 }
 
 static void userListByFollowersAmount(graph *grp) {
+	vertex **vert_array = NULL, *vert = NULL;
+	user user_name = NULL;
 
+	assert(grp != NULL);
+
+	vert_array = calloc(grp->vertex_amount, sizeof(vertex*));
+	vert = grp->first_vertex;
+
+	for (int i = 0; i < grp->vertex_amount; i++) {
+		vert_array[i] = vert;
+		vert = vert->next_vertex;
+	}
+
+	qsort(vert_array, grp->vertex_amount, sizeof(vertex*), compare_users);
+
+	for (int i = 0; i < grp->vertex_amount; i++) {
+		user_name = (user)vert_array[i]->value;
+		printf("%s: %d seguidores.\n", user_name, vert_array[i]->edges_amount);
+	}
 }
 
 static void userCreate(graph *grp) {
