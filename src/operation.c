@@ -112,7 +112,7 @@ void userListByFollowersAmount(graph *grp) {
 
 void userCreate(graph *grp) {
 	user newUser = malloc(sizeof(user));
-	printf("NOme do novo usuário: ");
+	printf("Nome do novo usuário: ");
 	scanf("%s", newUser);
 	graphInsertVertex(grp, newUser);
 }
@@ -212,7 +212,7 @@ void run() {
 			//userListNoFollowers(graph *grp);
 			break;
 			case '4':
-			//userListNoFollowing(graph *grp);
+			userListNoFollowing(grp);
 			break;
 			case '5':
 			//userListByFollowersAmount(graph *grp);
@@ -230,7 +230,7 @@ void run() {
 			case '8':
 			printf("\nQual o usuário?: ");
 			scanf("%s", userName1);
-			printf("\nQuem você quer que ele deixe de siguir?: ");
+			printf("\nQuem você quer que ele deixe de seguir?: ");
 			scanf("%s", userName2);
 			userUnfollow(grp, userName1, userName2);
 			break;
