@@ -24,9 +24,8 @@ int cmpName(void *nameUser1, void *nameUser2) {
 }
 
 void userGetFollowers(graph *grp, user user_name) {
-	int amountFollower = 0, labelUser;
-	vertex *vertexUser = NULL,
-		   *vertexAux = grp->first_vertex;
+	int amountFollower = 0,	labelUser;
+	vertex *vertexUser = NULL, *vertexAux = grp->first_vertex;
 	edge *ed = NULL;
 
 	labelUser = graphFindVertexLabelByValue(grp, user_name, cmpName);
