@@ -9,7 +9,7 @@
 #define STANDARD_USER_NAME_LENGTH 20
 #define EQUAL_NAMES 0
 
-int compare_users(void *a, void *b) {
+int compare_users(const void *a, const void *b) {
 	vertex *v1 = (vertex*)a;
 	vertex *v2 = (vertex*)b;
 
@@ -66,7 +66,7 @@ void userGetFollowing(graph *grp, user user_name) {
 	else printf("! USUÁRIO NÃO ENCONTRADO !\n");
 }
 
-static void userListNoFollowing(graph *grp) {
+void userListNoFollowing(graph *grp) {
 	vertex *vert = NULL;
 	user user_name = NULL;
 
@@ -84,7 +84,7 @@ static void userListNoFollowing(graph *grp) {
 	}
 }
 
-static void userListByFollowersAmount(graph *grp) {
+void userListByFollowersAmount(graph *grp) {
 	vertex **vert_array = NULL, *vert = NULL;
 	user user_name = NULL;
 
@@ -107,24 +107,23 @@ static void userListByFollowersAmount(graph *grp) {
 }
 
 void userCreate(graph *grp){
-	vertex *v = NULL;
-	user newUser;
+	user newUser = malloc(sizeof(user));
 	printf("NOme do novo usuário: ");
 	scanf("%s", newUser);
-	graphInsertVertex(grp, *newUser);
+	graphInsertVertex(grp, newUser);
 }
 
 void userFollow(graph *grp, user first_user, user second_user){
 	int u1, u2;
-	u1 = graphFindVertexLabelByValue(grp, first_user);
-	u2 = graphFindVertexLabelByValue(grp, second_user);
+	u1 = graphFindVertexLabelByValue(grp, first_user, cmpName);
+	u2 = graphFindVertexLabelByValue(grp, second_user, cmpName);
 	graphInsertEdge(grp, u1, u2);
 }
 
 void userUnfollow(graph *grp, user first_user, user second_user){
 	int u1, u2;
-	u1 = graphFindVertexLabelByValue(grp, first_user);
-	u2 = graphFindVertexLabelByValue(grp, second_user);
+	u1 = graphFindVertexLabelByValue(grp, first_user, cmpName);
+	u2 = graphFindVertexLabelByValue(grp, second_user, cmpName);
 	graphRemoveEdge(grp, u1, u2);
 }
 
@@ -151,7 +150,7 @@ void run() {
 	int networkOnline = ONLINE, i, labelUser;
 	char option,
 		 teste[][STANDARD_USER_NAME_LENGTH] = {{"rener"}, {"yuri"}, {"yago"}, {"elias"}};
-	user userName = malloc(sizeof(char));
+	user userName = malloc(sizeof(char)), userName2 = malloc(sizeof(char));
 	vertex *vertexUser = NULL;
 	graph *grp = graphAlloc();
 
@@ -197,19 +196,27 @@ void run() {
 			//userListNoFollowers(graph *grp);
 			break;
 			case '4':
-			//userListNoFollowing(graph *grp);
+			userListNoFollowing(grp);
 			break;
 			case '5':
 			//userListByFollowersAmount(graph *grp);
 			break;
 			case '6':
-			//userCreate(graph *grp);
+			userCreate(grp);
 			break;
 			case '7':
-			//userFollow(graph *grp, user first_user, user second_user);
+			printf("\nQual o usuário?: ");
+			scanf("%s", userName);
+			printf("\nQuem você quer que ele siga?: ");
+			scanf("%s", userName2);
+			userFollow(grp, userName, userName2);
 			break;
 			case '8':
-			//userUnfollow(graph *grp, user first_user, user second_user);
+			printf("\nQual o usuário?: ");
+			scanf("%s", userName);
+			printf("\nQuem você quer que ele deixe de siguir?: ");
+			scanf("%s", userName2);
+			userUnfollow(grp, userName, userName2);
 			break;
 			case '9':
 			networkOnline = OFFLINE;
