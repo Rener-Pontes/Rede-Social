@@ -15,7 +15,28 @@ int cmpName(void *nameUser1, void *nameUser2) {
 }
 
 void userGetFollowers(graph *grp, user user_name) {
+	int amountFollower = 0,
+		labelUser = graphFindVertexLabelByValue(grp, user_name, cmpName);
+	vertex *vertexUser = graphFindVertex(grp, labelUser),
+		   *vertexAux = grp->first_vertex;
+	edge *ed = NULL;
 
+	printf("[%s]\n", (char*)user_name);
+	while (vertexAux) {
+		ed = vertexAux->first_edge;
+		while (ed) {
+			if (ed->destiny == vertexUser) {
+				amountFollower++;
+				printf("|> %s\n", (char*)vertexAux->value);
+				break;
+			}
+			ed = ed->next_edge;
+		}
+
+		vertexAux = vertexAux->next_vertex;
+	}
+
+	printf("SEGUIDORES: %d\n", amountFollower);
 }
 
 void userGetFollowing(graph *grp, user user_name) {
@@ -25,12 +46,13 @@ void userGetFollowing(graph *grp, user user_name) {
 
 	labelUser = graphFindVertexLabelByValue(grp, user_name,  cmpName);
 	if (vertexUser = graphFindVertex(grp, labelUser)) {
-		printf("[%s] SEGUIDOS: %d\n", (char*)vertexUser->value, vertexUser->edges_amount);
+		printf("[%s]\n", (char*)vertexUser->value);
 		ed = vertexUser->first_edge;
 		while (ed) {
 			printf("|> %s\n", (char*)ed->destiny->value);
 			ed = ed->next_edge;
 		}
+		printf("SEGUIDOS: %d\n", vertexUser->edges_amount);
 	}
 	else printf("! USUÁRIO NÃO ENCONTRADO !\n");
 }
@@ -115,16 +137,14 @@ void run() {
 		printf("\e[1J\e[1H");
 		switch (option) {
 			case '1':
-			//userGetFollowers(graph *grp, user user_name);
+			printf("\nUsuário: ");
+			scanf("%s", userName);
+			userGetFollowers(grp, userName);
 			break;
 			case '2':
 			printf("\nUsuário: ");
 			scanf("%s", userName);
-			if ((labelUser = graphFindVertexLabelByValue(grp, userName, cmpName)) != -1) {
-				vertexUser = graphFindVertex(grp, labelUser);
-				userGetFollowing(grp, vertexUser->value);
-			}
-			else printf("! USUÁRIO NÃO ENCONTRADO !\n");
+			userGetFollowing(grp, userName);
 			break;
 			case '3':
 			//userListNoFollowers(graph *grp);
