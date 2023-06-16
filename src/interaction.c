@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "./lib/interaction.h"
+//#include "./lib/graph.h"
+#include "operation.c"
 
 #define ONLINE 1
 #define OFFLINE 0

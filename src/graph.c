@@ -53,7 +53,7 @@ int 	graphFindVertexLabelByValue(graph *grp, void *search_value, int (*compar)(v
 
 	vert = grp->first_vertex;
 	while (vert) {
-		if (compar(search_value, vert->value)) 
+		if (compar(search_value, vert->value) == 0) 
 			return vert->label;
 		vert = vert->next_vertex;
 	}
