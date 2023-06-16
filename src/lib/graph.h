@@ -2,6 +2,8 @@ typedef struct graph graph;
 typedef struct vertex vertex;
 typedef struct edge edge;
 
+#ifndef GRAPH_H
+#define GRAPH_H
 
 struct graph {
 	int 	vertex_amount;
@@ -23,6 +25,7 @@ struct edge {
 	edge   *next_edge;
 };
 
+#endif
 
 graph  *graphAlloc();
 void	graphFree(graph *grp);
