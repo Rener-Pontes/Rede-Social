@@ -88,6 +88,34 @@ void userListNoFollowing(graph *grp) {
 	}
 }
 
+void userListNoFollowers(graph *grp) {
+	int amountFollower = 0;
+	vertex *vertexUser = grp->first_vertex,
+		   *vertexAux = grp->first_vertex;
+	edge *ed = NULL;
+
+	while(vertexUser){
+		amountFollower = 0;
+		while (vertexAux) {
+			ed = vertexAux->first_edge;
+			while (ed) {
+				if (ed->destiny == vertexUser) {
+					amountFollower++;
+					break;
+				}
+				ed = ed->next_edge;
+			}
+
+			vertexAux = vertexAux->next_vertex;
+		}
+		if(amountFollower == 0){
+			printf("[%s]\n", ((user)vertexUser->value));
+		}
+		vertexUser = vertexUser->next_vertex;
+		vertexAux = grp->first_vertex;
+	}
+}
+
 void userListByFollowersAmount(graph *grp) {
 	vertex **vert_array = NULL, *vert = NULL;
 	user user_name = NULL;
@@ -209,7 +237,7 @@ void run() {
 			userGetFollowing(grp, userName1);
 			break;
 			case '3':
-			//userListNoFollowers(graph *grp);
+			userListNoFollowers(grp);
 			break;
 			case '4':
 			userListNoFollowing(grp);
