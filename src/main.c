@@ -1,4 +1,4 @@
-#include "./lib/operation.h"
+#include "lib/operation.h"
 
 int main() {
 	run();

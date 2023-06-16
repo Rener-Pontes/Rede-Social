@@ -54,7 +54,8 @@ void userGetFollowing(graph *grp, user user_name) {
 	int labelUser;
 
 	labelUser = graphFindVertexLabelByValue(grp, user_name,  cmpName);
-	if (vertexUser = graphFindVertex(grp, labelUser)) {
+	if (labelUser != -1) {
+		vertexUser = graphFindVertex(grp, labelUser);
 		printf("[%s]\n", (char*)vertexUser->value);
 		ed = vertexUser->first_edge;
 		while (ed) {
@@ -106,21 +107,21 @@ void userListByFollowersAmount(graph *grp) {
 	}
 }
 
-void userCreate(graph *grp){
+void userCreate(graph *grp) {
 	user newUser = malloc(sizeof(user));
-	printf("NOme do novo usuário: ");
+	printf("Nome do novo usuário: ");
 	scanf("%s", newUser);
 	graphInsertVertex(grp, newUser);
 }
 
-void userFollow(graph *grp, user first_user, user second_user){
+void userFollow(graph *grp, user first_user, user second_user) {
 	int u1, u2;
 	u1 = graphFindVertexLabelByValue(grp, first_user, cmpName);
 	u2 = graphFindVertexLabelByValue(grp, second_user, cmpName);
 	graphInsertEdge(grp, u1, u2);
 }
 
-void userUnfollow(graph *grp, user first_user, user second_user){
+void userUnfollow(graph *grp, user first_user, user second_user) {
 	int u1, u2;
 	u1 = graphFindVertexLabelByValue(grp, first_user, cmpName);
 	u2 = graphFindVertexLabelByValue(grp, second_user, cmpName);
@@ -147,20 +148,32 @@ void print(graph *grp) {
 }
 
 void run() {
-	int networkOnline = ONLINE, i, labelUser;
+	int networkOnline = ONLINE, i, labelUser, labelFollower, numberFollowers;
 	char option,
-		 teste[][STANDARD_USER_NAME_LENGTH] = {{"rener"}, {"yuri"}, {"yago"}, {"elias"}};
-	user userName = malloc(sizeof(char)), userName2 = malloc(sizeof(char));
+		 listUsers[][STANDARD_USER_NAME_LENGTH] = {
+		 	{"daenerys"}, {"arya"}, {"sansa"}, {"drogon"},
+		 	{"yara"}, {"tyrion"}, {"bran"}, {"myrcella"},
+		 	{"nymeria"}, {"theon"}, {"rob"}, {"gendry"}
+		 };
+	FILE *file = fopen("users_follow.dat", "r");
+	user userName1 = malloc(sizeof(user)),
+		 userName2 = malloc(sizeof(user));
 	vertex *vertexUser = NULL;
 	graph *grp = graphAlloc();
 
-	for (i = 0; i < 4; ++i)
-		graphInsertVertex(grp, teste[i]);
+	for (i = 0; i < 12; ++i)
+		graphInsertVertex(grp, listUsers[i]);
 
-	graphInsertEdge(grp, 0, 1);
-	graphInsertEdge(grp, 0, 2);
-	graphInsertEdge(grp, 2, 3);
-	graphInsertEdge(grp, 1, 2);
+	while (1) {
+		if (fscanf(file, "%d%d", &numberFollowers, &labelUser) != 2)
+			break;
+		for (i = 0; i < numberFollowers; i++) {
+			if (fscanf(file, "%d", &labelFollower) == 1)
+				graphInsertEdge(grp, labelUser, labelFollower);
+		}
+	}
+
+	fclose(file);
 
 	printf("\e[1J\e[1H_______________________  BEM-VINDO AO GRAFNET  _______________________\n\n");
 
@@ -184,13 +197,13 @@ void run() {
 		switch (option) {
 			case '1':
 			printf("\nUsuário: ");
-			scanf("%s", userName);
-			userGetFollowers(grp, userName);
+			scanf("%s", userName1);
+			userGetFollowers(grp, userName1);
 			break;
 			case '2':
 			printf("\nUsuário: ");
-			scanf("%s", userName);
-			userGetFollowing(grp, userName);
+			scanf("%s", userName1);
+			userGetFollowing(grp, userName1);
 			break;
 			case '3':
 			//userListNoFollowers(graph *grp);
@@ -206,17 +219,17 @@ void run() {
 			break;
 			case '7':
 			printf("\nQual o usuário?: ");
-			scanf("%s", userName);
+			scanf("%s", userName1);
 			printf("\nQuem você quer que ele siga?: ");
 			scanf("%s", userName2);
-			userFollow(grp, userName, userName2);
+			userFollow(grp, userName1, userName2);
 			break;
 			case '8':
 			printf("\nQual o usuário?: ");
-			scanf("%s", userName);
-			printf("\nQuem você quer que ele deixe de siguir?: ");
+			scanf("%s", userName1);
+			printf("\nQuem você quer que ele deixe de seguir?: ");
 			scanf("%s", userName2);
-			userUnfollow(grp, userName, userName2);
+			userUnfollow(grp, userName1, userName2);
 			break;
 			case '9':
 			networkOnline = OFFLINE;
