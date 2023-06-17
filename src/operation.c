@@ -48,7 +48,7 @@ void userGetFollowers(graph *grp, user user_name) {
 
 		printf("SEGUIDORES: %d\n", amountFollower);
 	}
-	else printf("! USUÁRIO NÃO ENCONTRADO !\n");
+	else printf("\t\t\t! USUÁRIO NÃO ENCONTRADO !\n");
 }
 
 void userGetFollowing(graph *grp, user user_name) {
@@ -67,7 +67,7 @@ void userGetFollowing(graph *grp, user user_name) {
 		}
 		printf("SEGUIDOS: %d\n", vertexUser->edges_amount);
 	}
-	else printf("! USUÁRIO NÃO ENCONTRADO !\n");
+	else printf("\t\t\t! USUÁRIO NÃO ENCONTRADO !\n");
 }
 
 void userListNoFollowing(graph *grp) {
@@ -151,7 +151,7 @@ void userFollow(graph *grp, user first_user, user second_user) {
 	u2 = graphFindVertexLabelByValue(grp, second_user, cmpName);
 	if (u1 != -1 && u2 != -1)
 		graphInsertEdge(grp, u1, u2);
-	else printf("! USUÁRIO NÃO ENCONTRADO !\n");
+	else printf("\t\t\t! USUÁRIO NÃO ENCONTRADO !\n");
 }
 
 void userUnfollow(graph *grp, user first_user, user second_user) {
@@ -160,7 +160,7 @@ void userUnfollow(graph *grp, user first_user, user second_user) {
 	u2 = graphFindVertexLabelByValue(grp, second_user, cmpName);
 	if (u1 != -1 && u2 != -1)
 		graphRemoveEdge(grp, u1, u2);
-	else printf("! USUÁRIO NÃO ENCONTRADO !\n");
+	else printf("\t\t\t! USUÁRIO NÃO ENCONTRADO !\n");
 }
 
 void print(graph *grp) {
