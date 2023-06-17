@@ -243,7 +243,7 @@ void run() {
 			userListNoFollowing(grp);
 			break;
 			case '5':
-			//userListByFollowersAmount(graph *grp);
+			userListByFollowersAmount(grp);
 			break;
 			case '6':
 			userCreate(grp);
