@@ -1,12 +1,13 @@
-0	daenerys	arya sansa drogon
-1	arya		yara tyrion
-2	sansa		arya daenerys bran drogon myrcella
-3	drogon
-4	yara
-5	tyrion		arya yara theon nymeria sansa daenerys
-6	bran		daenerys drogon nymeria
-7	myrcella	tyrion drogon
-8	nymeria		bran drogon
-9 	theon		yara myrcella
-10	rob			daenerys drogon
-11	gendry		rob drogon nymeria
+INDEX	USER		FOLLOWED
+0		daenerys	arya sansa drogon
+1		arya		yara tyrion
+2		sansa		arya daenerys bran drogon myrcella
+3		drogon
+4		yara
+5		tyrion		arya yara theon nymeria sansa daenerys
+6		bran		daenerys drogon nymeria
+7		myrcella	tyrion drogon
+8		nymeria		bran drogon
+9		theon		yara myrcella
+10		rob			daenerys drogon
+11		gendry		rob drogon nymeria

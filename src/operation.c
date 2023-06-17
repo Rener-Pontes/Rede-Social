@@ -149,14 +149,18 @@ void userFollow(graph *grp, user first_user, user second_user) {
 	int u1, u2;
 	u1 = graphFindVertexLabelByValue(grp, first_user, cmpName);
 	u2 = graphFindVertexLabelByValue(grp, second_user, cmpName);
-	graphInsertEdge(grp, u1, u2);
+	if (u1 != -1 && u2 != -1)
+		graphInsertEdge(grp, u1, u2);
+	else printf("! USUÁRIO NÃO ENCONTRADO !\n");
 }
 
 void userUnfollow(graph *grp, user first_user, user second_user) {
 	int u1, u2;
 	u1 = graphFindVertexLabelByValue(grp, first_user, cmpName);
 	u2 = graphFindVertexLabelByValue(grp, second_user, cmpName);
-	graphRemoveEdge(grp, u1, u2);
+	if (u1 != -1 && u2 != -1)
+		graphRemoveEdge(grp, u1, u2);
+	else printf("! USUÁRIO NÃO ENCONTRADO !\n");
 }
 
 void print(graph *grp) {
@@ -206,11 +210,11 @@ void run() {
 
 	fclose(file);
 
-	printf("\e[1J\e[1H_______________________  BEM-VINDO AO GRAFNET  _______________________\n\n");
+	printf("\e[1J\e[1H___________________________  BEM-VINDO AO GRAFNET  ___________________________\n\n");
 
 	do {
 		printf(
-		"----------------------------------------------------------------------\n"
+		"------------------------------------------------------------------------------\n"
 		" [ 1 ] Selecionar um usuário e listar os seus seguidores\n"
 		" [ 2 ] Selecionar um usuário e listar os seus seguidos\n"
 		" [ 3 ] Listar usuários que não são seguidos por ninguém\n"
@@ -220,51 +224,51 @@ void run() {
 		" [ 7 ] Selecionar dois usuários e fazer o primeiro seguir o segundo\n"
 		" [ 8 ] Selecionar dois usuários e fazer o primeiro deixar de seguir o segundo\n"
 		" [ 9 ] Sair\n"
-		"----------------------------------------------------------------------\n+> "
+		"------------------------------------------------------------------------------\n+> "
 		);
 
 		scanf(" %c", &option);
 		printf("\e[1J\e[1H");
 		switch (option) {
 			case '1':
-			printf("\nUsuário: ");
-			scanf("%s", userName1);
-			userGetFollowers(grp, userName1);
-			break;
+				printf("\nUsuário: ");
+				scanf("%s", userName1);
+				userGetFollowers(grp, userName1);
+				break;
 			case '2':
-			printf("\nUsuário: ");
-			scanf("%s", userName1);
-			userGetFollowing(grp, userName1);
-			break;
+				printf("\nUsuário: ");
+				scanf("%s", userName1);
+				userGetFollowing(grp, userName1);
+				break;
 			case '3':
-			userListNoFollowers(grp);
-			break;
+				userListNoFollowers(grp);
+				break;
 			case '4':
-			userListNoFollowing(grp);
-			break;
+				userListNoFollowing(grp);
+				break;
 			case '5':
-			userListByFollowersAmount(grp);
-			break;
+				userListByFollowersAmount(grp);
+				break;
 			case '6':
-			userCreate(grp);
-			break;
+				userCreate(grp);
+				break;
 			case '7':
-			printf("\nQual o usuário?: ");
-			scanf("%s", userName1);
-			printf("\nQuem você quer que ele siga?: ");
-			scanf("%s", userName2);
-			userFollow(grp, userName1, userName2);
-			break;
+				printf("\nQual o usuário?: ");
+				scanf("%s", userName1);
+				printf("\nQuem você quer que ele siga?: ");
+				scanf("%s", userName2);
+				userFollow(grp, userName1, userName2);
+				break;
 			case '8':
-			printf("\nQual o usuário?: ");
-			scanf("%s", userName1);
-			printf("\nQuem você quer que ele deixe de seguir?: ");
-			scanf("%s", userName2);
-			userUnfollow(grp, userName1, userName2);
-			break;
+				printf("\nQual o usuário?: ");
+				scanf("%s", userName1);
+				printf("\nQuem você quer que ele deixe de seguir?: ");
+				scanf("%s", userName2);
+				userUnfollow(grp, userName1, userName2);
+				break;
 			case '9':
-			networkOnline = OFFLINE;
-			break;
+				networkOnline = OFFLINE;
+				break;
 			default:
 				printf("! OPÇÃO INVÁLIDA !\n");
 		}
